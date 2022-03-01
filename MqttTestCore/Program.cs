@@ -70,18 +70,14 @@ namespace MqttTestCore
 
             _mqttClient.StartAsync(options).GetAwaiter().GetResult();
 
-            MqttTopicFilter filter = new MqttTopicFilterBuilder().WithTopic(TOPIC).WithExactlyOnceQoS().Build();//qos değiştirilebilir
+            while (true)
+            {
+                MqttTopicFilter filter = new MqttTopicFilterBuilder().WithTopic(TOPIC).WithExactlyOnceQoS().Build();//qos değiştirilebilir
 
-            await _mqttClient.SubscribeAsync(filter);
+                await _mqttClient.SubscribeAsync(filter);
 
-            //while (true)
-            //{
-            //    MqttTopicFilter filter = new MqttTopicFilterBuilder().WithTopic(TOPIC).WithExactlyOnceQoS().Build();//qos değiştirilebilir
-
-            //    await _mqttClient.SubscribeAsync(filter);
-
-            //    await Task.Delay(1000);
-            //}
+                await Task.Delay(1000);
+            }
         }
     }
 }
